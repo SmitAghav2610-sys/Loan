@@ -6,7 +6,7 @@
   <title>Loan Application Form</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* General Reset */
+     /* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -99,11 +99,15 @@ header .nav-links a:hover {
 .form-container::after {
   content: "";
   position: absolute;
-  top: 200px;
+  top: 100px;
+
   left: 0;
   width: 100%;
   height:90%;
-  background: url(Logo.png) repeat-y center center;
+  background: url('Logo.png'), url('Logo.png'), url('Logo.png');
+  background-repeat: no-repeat;
+  background-position: center top, center center, center bottom;
+  background-size: contain;
   opacity: 0.4;
   z-index: -1; 
   pointer-events:none; 
@@ -125,7 +129,9 @@ h2{
 }
 .form-group {
   margin-bottom:20px;
-  
+}
+.declare{
+  text-align: center;
 }
 
 .form-group label{
@@ -147,7 +153,7 @@ h2{
 }
 
 /* Submit Button */
-.submit-btn {
+.submit-btn,.print-btn {
   background-color: #004D40;
   color: #fff;
   padding: 12px 20px;
@@ -239,6 +245,7 @@ h2{
       background-color: #f1f1f1;
       margin-bottom: 20px;
       cursor: crosshair;
+      width: 400px;
     }
 
     .color-options {
@@ -319,6 +326,10 @@ h2{
   }
 
   .submit-btn {
+    font-size: 16px;
+  }
+  
+  .print-btn {
     font-size: 16px;
   }
 }
@@ -428,7 +439,54 @@ footer {
   }
 
 }
-   
+/* date of birth*/
+
+.form-group-dob label {
+  /* color: #333; */
+  font-size: 1.1rem;
+}
+
+.form-group-dob input[type="date"] {
+  /* background-color: #fff; */
+  border: 1px solid #ccc;
+  padding: 0.6rem;
+  font-size: 1rem;
+}
+
+.error-message {
+  color: red;
+  font-style: italic;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: none; /* Initially hidden */
+}
+@media print {
+  /* Hide header and footer */
+  header, footer {
+    display: none;
+  }
+
+  /* Ensure the form content is visible */
+  .form-container {
+    display: block;
+  }
+
+  /* Retain background logo */
+  body {
+    -webkit-print-color-adjust: exact; /* For Safari */
+    print-color-adjust: exact; /* For modern browsers */
+  }
+
+  /* Optionally, adjust margins for the printout */
+  body {
+    margin: 0;
+  }
+
+  .print-btn,.submit-btn{
+    display: none; 
+  }
+}
+
   </style>
 </head>
 <body>
@@ -454,22 +512,23 @@ footer {
           <label for="name">Full Name <span class="required-symbol">*</span></label>
           <input type="text" id="name" name="name" placeholder="Enter your full name" required>
         </div>
-        <div class="form-group">
+        <div class="form-group form-group-dob">
           <label for="dob">Date of Birth <span class="required-symbol">*</span></label>
-          <input type="date" id="dob" name="dob" required>
+          <input type="date" id="dob" name="dob">
+          <small id="dob-error" class="error-message">You must be at least 18 years old.</small>
         </div>
         <div class="form-group">
           <label for="gender">Gender <span class="required-symbol">*</span></label>
-          <select id="gender" name="gender" required>
-            <option value="">Select Gender</option>
+          <select id="gender" name="gender"  required>
+            <option value="select gender">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="phone">Phone Number <span class="required-symbol">*</span></label>
-          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required maxlength="10">
+          <label for="phone">Contact Number <span class="required-symbol">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="Enter your contact number" required maxlength="10">
         </div>
         <div class="form-group">
           <label for="email">Email Address <span class="required-symbol">*</span></label>
@@ -480,12 +539,12 @@ footer {
           <textarea id="address" name="address" rows="4" placeholder="Enter your address" required></textarea>
         </div>
         <div class="form-group">
-          <label for="pan">PAN Number <span class="required-symbol">*</span></label>
-          <input type="text" id="pan" name="pan" placeholder="Enter your PAN number" maxlength="10" required>
+          <label for="pan">Pan Number <span class="required-symbol">*</span></label>
+          <input type="text" id="pan" name="pan" placeholder="Enter your Pan number" maxlength="10" required>
         </div>
         <div class="form-group">
-          <label for="pan">AADHAR Number <span class="required-symbol">*</span></label>
-          <input type="text" id="aadhar" name="aadhar" placeholder="Enter your AADHAR number" maxlength="12" required>
+          <label for="pan">Aadhar Number <span class="required-symbol">*</span></label>
+          <input type="text" id="aadhar" name="aadhar" placeholder="Enter your Aadhar number" maxlength="12" required>
         </div>
         <div class="form-group">
           <label for="state">State <span class="required-symbol">*</span></label>
@@ -675,63 +734,48 @@ footer {
         </div>
         <div class="form-group">
           <label for="pan">Pan Number <span class="required-symbol">*</span></label>
-          <input type="text" id="pan" name="pan" placeholder="Enter guarantor PAN number" maxlength="10" required>
+          <input type="text" id="pan" name="pan" placeholder="Enter guarantor Pan number" maxlength="10" required>
         </div>
         <div class="form-group">
           <label for="pan">Aadhar Number <span class="required-symbol">*</span></label>
-          <input type="text" id="aadhar" name="aadhar" placeholder="Enter guarantor AADHAR number" maxlength="12" required>
+          <input type="text" id="aadhar" name="aadhar" placeholder="Enter guarantor Aadhar number" maxlength="12" required>
         </div>
-        <!-- <div class="form-group">
-          <label for="idProof">Upload ID Proof <span class="required-symbol">*</span></label>
-          <select id="idProofType" name="idProofType" required>
-            <option value="" disabled selected>Select ID Type</option>
-            <option value="aadhar">Aadhar Card</option>
-            <option value="pan">PAN Card</option>
-            <option value="drivingLicense">Driving License</option>
-            <option value="votingCard">Voting Card</option>
-          </select>
-          <br>
-          <br>
-          <div class="file-input-container">
-            <input type="file" id="idProof" name="idProof" required>
-          </div>
-          <div class="file-input-container">
-            <input type="file" id="idProof" name="idProof" required>
-          </div>
-        </div> -->
+    
         <div class="form-group">
-          <label for="idProof">Upload Aadhar<span class="required-symbol">*</span></label>
-          <input type="file" id="idProof" name="idProof" required>
-        </div> <div class="form-group">
-
-          <label for="idProof">Upload Pan<span class="required-symbol">*</span></label>
-          <input type="file" id="idProof" name="idProof" required>
+          <label for="photoUpload">Upload Photo <span class="required-symbol">*</span></label>
+          <input type="file" id="photoUpload" name="photoUpload" accept=".png, .jpg, .jpeg" required>
         </div>
-
+        <div class="form-group">
+          <label for="aadharUpload">Upload Aadhar <span class="required-symbol">*</span></label>
+          <input type="file" id="aadharUpload" name="aadharUpload" accept=".png, .jpg, .jpeg" required>
+        </div>
+        <div class="form-group">
+          <label for="panUpload">Upload Pan <span class="required-symbol">*</span></label>
+          <input type="file" id="panUpload" name="panUpload" accept=".png, .jpg, .jpeg" required>
+        </div>
+        
         <h2>Documents Upload</h2>
         <div class="form-group">
-          <label for="idProof">Upload Photo <span class="required-symbol">*</span></label>
-          <input type="file" id="idProof" name="idProof" required>
+          <label for="photoUpload2">Upload Photo <span class="required-symbol">*</span></label>
+          <input type="file" id="photoUpload2" name="photoUpload2" accept=".png, .jpg, .jpeg" required>
+        </div>
+        <div class="form-group">
+          <label for="aadharUpload2">Upload Aadhar <span class="required-symbol">*</span></label>
+          <input type="file" id="aadharUpload2" name="aadharUpload2" accept=".png, .jpg, .jpeg" required>
+        </div>
+        <div class="form-group">
+          <label for="panUpload2">Upload Pan <span class="required-symbol">*</span></label>
+          <input type="file" id="panUpload2" name="panUpload2" accept=".png, .jpg, .jpeg" required>
         </div>
         
         <div class="form-group">
-          <label for="idProof">Upload Aadhar<span class="required-symbol">*</span></label>
-          <input type="file" id="idProof" name="idProof" required>
-        </div> <div class="form-group">
-
-          <label for="idProof">Upload Pan<span class="required-symbol">*</span></label>
-          <input type="file" id="idProof" name="idProof" required>
-        </div>
-
-        <div class="form-group">
           <label for="incomeProof">Upload Income Proof <span class="required-symbol">*</span></label>
-          <input type="file" id="incomeProof" name="incomeProof" required>
+          <input type="file" id="incomeProof" name="incomeProof" accept=".png, .jpg, .jpeg" required>
         </div>
         <div class="form-group">
-          <label for="incomeProof">Upload Residential Proof <span class="required-symbol">*</span></label>
-          <input type="file" id="incomeProof" name="incomeProof" required>
+          <label for="residentialProof">Upload Residential Proof <span class="required-symbol">*</span></label>
+          <input type="file" id="residentialProof" name="residentialProof" accept=".png, .jpg, .jpeg" required>
         </div>
-    
      <!-- Signature Upload Section -->
   <div class="form-group">
     <label for="signature">Upload Signature <span class="required-symbol">*</span></label>
@@ -748,7 +792,7 @@ footer {
         <button type="button" data-color="green" onclick="changePenColor('green')"></button>
         <button type="button" data-color="blue" onclick="changePenColor('blue')"></button>
       </div>
-      <canvas id="signature-pad" width="400" height="150"></canvas>
+      <canvas id="signature-pad" width="300" height="150"></canvas>
       <div class="file-input-container">
         <label for="signature-file">Add Signature from File</label>
         <input type="file" id="signature-file" accept="image/*" onchange="loadSignatureFromFile(event)">
@@ -766,15 +810,18 @@ footer {
       
 
         <h2>Declaration and Consent</h2>
-        <div class="form-group">
-          <p>I hereby declare that the information provided is accurate to the best of my knowledge.</p>
-          <p>I consent to the processing of my personal and financial information for loan evaluation purposes.</p>
+        <div class="form-group declare">
           <div class="checkbox-group">
             <input type="checkbox" id="agree" name="agree" required>
             <label for="agree">I Agree</label>
           </div>
+          <p>I hereby declare that the information provided is accurate to the best of my knowledge.</p>
+          <p>I consent to the processing of my personal and financial information for loan evaluation purposes.</p>  
         </div>
         <button type="submit" class="submit-btn">Submit Application</button>
+        <br>
+        <br>
+        <button type="print" onclick="window.print()" class="print-btn">Print Application</button>
       </form>
     </div>
   </section>
@@ -976,6 +1023,13 @@ footer {
       document.addEventListener('DOMContentLoaded', () => {
   
     const inputs = {
+      fullName: {
+  element: document.getElementById('name'),
+  regex: /^[A-Za-z\s]+$/,
+  errorMessage: "Invalid full name. Only alphabets and spaces are allowed.",
+  successMessage: "Valid full name.",
+},
+
       phone: {
         element: document.getElementById('phone'),
         regex: /^[6-9]\d{9}$/,
@@ -996,10 +1050,11 @@ footer {
       },
       aadhar: {
         element: document.getElementById('aadhar'),
-        regex: /^[0-9]\d{12}$/,
+        regex: /^\d{12}$/,
         errorMessage: "Invalid Aadhaar number. Must be exactly 12 digits.",
         successMessage: "Valid Aadhaar number.",
       },
+  
       guarantorPhone: {
         element: document.getElementById('refContact1'),
         regex: /^[6-9]\d{9}$/,
@@ -1007,17 +1062,30 @@ footer {
         successMessage: "Valid phone number.",
       },
       guarantorPan: {
-        element: document.querySelector('input[name="pan"][placeholder="Enter guarantor PAN number"]'),
+        element: document.querySelector('input[name="pan"][placeholder="Enter guarantor Pan number"]'),
         regex: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
         errorMessage: "Invalid guarantor PAN format. Must be in format: ABCDE1234F.",
         successMessage: "Valid PAN number.",
       },
       guarantorAadhar: {
-        element: document.querySelector('input[name="aadhar"][placeholder="Enter guarantor AADHAR number"]'),
+        element: document.querySelector('input[name="aadhar"][placeholder="Enter guarantor Aadhar number"]'),
         regex: /^\d{12}$/,
         errorMessage: "Invalid guarantor Aadhaar number. Must be exactly 12 digits.",
         successMessage: "Valid Aadhaar number.",
       },
+      guarantorName: {
+  element: document.getElementById('refName1'),
+  regex: /^[A-Za-z\s]+$/,
+  errorMessage: "Invalid guarantor name. Only alphabets and spaces are allowed.",
+  successMessage: "Valid guarantor name.",
+},
+guarantorRelationship: {
+  element: document.getElementById('refRelationship1'),
+  regex: /^[A-Za-z\s]+$/,
+  errorMessage: "Invalid relationship. Only alphabets and spaces are allowed.",
+  successMessage: "Valid relationship.",
+},
+     
     };
 
     Object.values(inputs).forEach(({ element, regex, errorMessage, successMessage }) => {
@@ -1128,7 +1196,30 @@ footer {
       }
     }
 
+    document.getElementById("dob").addEventListener("change", function () {
+  const dob = new Date(this.value);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+  const dayDiff = today.getDate() - dob.getDate();
+
+  // Adjust age calculation if birthday has not occurred yet this year
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  const errorElement = document.getElementById("dob-error");
+
+  // Show or hide error based on strict age validation (must be over 18)
+  if (age <= 18) {
+    errorElement.style.display = "block"; // Show error message
+    this.setCustomValidity("You must be older than 18 years."); // Prevent form submission
+  } else {
+    errorElement.style.display = "none"; // Hide error message
+    this.setCustomValidity(""); // Allow form submission
+  }
+});
+
   </script>
 </body>
 </html>
-
